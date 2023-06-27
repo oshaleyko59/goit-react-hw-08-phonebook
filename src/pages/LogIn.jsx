@@ -10,13 +10,11 @@ import {
   VStack,
   Text,
 } from '@chakra-ui/react';
-import toast, { Toaster } from 'react-hot-toast';
 
 export default function LogIn() {
   const dispatch = useDispatch();
 
   const onSubmit = e => {
-    toast('on Submit');
     e.preventDefault();
     const form = e.target;
     const email = form.elements.email.value;
@@ -48,7 +46,6 @@ export default function LogIn() {
         <Button type="submit" colorScheme="blue">
           Log in
         </Button>
-        <Toaster />
       </Stack>
     </VStack>
   );

@@ -10,10 +10,10 @@ import { Colors } from '../common/COLORS';
 import styled from 'styled-components';
 
 const StyledLink = styled(NavLink)`
-  color: blue;
+  color: ${Colors.blue};
 
   &.active {
-    color: white;
+    color: #7f8137;
   }
 `;
 
