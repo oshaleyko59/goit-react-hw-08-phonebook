@@ -17,11 +17,12 @@ const updateStateOnFulfilled = state => {
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: { items: [], isLoading: false, error: '' },
+
   extraReducers: builder => {
     builder
       .addCase(fetchContacts.fulfilled, (state, action) => {
-                console.log('fetchContacts.fulfilled>>', action);
-        //updateStateOnFulfilled(state); //TODO:
+        console.log('fetchContacts.fulfilled>>', action);
+        //updateStateOnFulfilled(state);
         state.isLoading = false;
         state.error = '';
         state.items = action.payload;
@@ -44,9 +45,9 @@ const contactsSlice = createSlice({
       .addMatcher(isRejectedAction, (state, action) => {
         console.log('isRejectedAction>>', action);
         state.isLoading = false;
-  state.error = action.payload
-    ? action.payload //.response.data.message
-    : action.error.message;
+        state.error = action.payload
+          ? action.payload //.response.data.message
+          : action.error.message;
       });
   },
 });

@@ -1,6 +1,5 @@
 import { Suspense } from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
-
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from 'redux/auth/authSelectors';
 import { Loading } from './Loading';
@@ -65,41 +64,3 @@ export const SharedLayout = () => {
   );
 };
 
-/* BKP:
-  <Flex as="nav" justify="space-between">
-          <StyledLink to="/" >
-            <Text fontSize="24px">Home</Text>
-          </StyledLink>
-          {isLoggedIn && <StyledLink to="/contacts" end>
-            <Text>Contacts</Text>
-          </StyledLink>}
-          {isLoggedIn ? (
-            <UserMenu />
-          ) : (
-            <HStack spacing="16px">
-              <StyledLink to="/register">
-                <Text fontSize="20px">Register</Text>
-              </StyledLink>
-              <StyledLink to="logIn">
-                <LoginIcon />
-              </StyledLink>
-            </HStack>
-          )}
-        </Flex>
-
-/*             <Breadcrumb
-              spacing="8px"
-              separator={<ChevronRightIcon color="gray.500" />}
-            >
-              <BreadcrumbItem>
-                <BreadcrumbLink href="#">Home</BreadcrumbLink>
-              </BreadcrumbItem>
-
-              <BreadcrumbItem>
-                <BreadcrumbLink href="#">About</BreadcrumbLink>
-              </BreadcrumbItem>
-
-              <BreadcrumbItem isCurrentPage>
-                <BreadcrumbLink href="#">Contact</BreadcrumbLink>
-              </BreadcrumbItem>
-            </Breadcrumb>; */

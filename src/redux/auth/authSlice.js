@@ -24,8 +24,8 @@ const handlePending = state => {
 
 const handleRejected = (state, action) => {
   console.debug('handleRejected>>', action);
-  state.token = null; //???????????
-  state.isLoggedIn = false; //???????????
+  state.token = null;
+  state.isLoggedIn = false;
   state.isRefreshing = false;
   state.error = action.payload
     ? action.payload //.response.data.message
@@ -36,14 +36,14 @@ const handleRejected = (state, action) => {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  /* 	reducers: {
+  reducers: {
 		logOut: (state) => {
 			state.access_token = ''
 			state.isLoading = false
 			state.error = ''
 			state.profile = null
 		},
-	}, */
+	},
   extraReducers: builder => {
     builder
       .addCase(register.fulfilled, (state, action) => {
@@ -79,4 +79,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
-//export const { logOut } = authSlice.actions
+export const { logOut } = authSlice.actions;

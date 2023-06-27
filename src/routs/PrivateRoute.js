@@ -10,16 +10,9 @@ import Contacts from '../pages/Contacts';
  */
 
 export const PrivateRouteToContacts = () => {
-  const { isLoggedIn, isRefreshing, user } = useAuth();
+  const { isLoggedIn, isRefreshing } = useAuth();
 
   const shouldRedirect = !isLoggedIn && !isRefreshing;
-/*   console.log(
-    `PrivateRoute>>${shouldRedirect ? 'closed' : 'open'}for  ${JSON.stringify(
-      user
-    )}`,
-    isLoggedIn,
-    isRefreshing
-  ); */
 
   return shouldRedirect ? <Navigate to='/' /> : <Contacts />;
 };

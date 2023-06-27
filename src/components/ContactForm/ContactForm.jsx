@@ -1,21 +1,18 @@
-import { useRef } from 'react';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-//import { addContact } from 'redux/contacts/operations';
 import { setFilter } from 'redux/contacts/filterSlice';
-import { Label, Input } from 'common/styledCommon';
-import { SubmitBtn, Form } from './styled';
+import { SubmitBtn, Form, Label, Input } from './styled';
 import { useContacts } from '../../hooks/useContacts';
 
 const isAlreadyInContacts = (contacts, newContact) => {
-  return contacts.some(
+  const res= contacts.some(
     contact =>
       contact.name.toLocaleLowerCase() === newContact.name.toLowerCase()
   );
+  return res;
 };
 
 export const ContactForm = () => {
- // const formRef = useRef();
   const dispatch = useDispatch();
   const { onAddContact, contacts } = useContacts();
 
@@ -31,24 +28,15 @@ export const ContactForm = () => {
       number: form.elements.number.value,
     };
     if (isAlreadyInContacts(contacts, newContact)) {
-      console.error(`${newContact.name} is in your Contacts`); //
+      dispatch(setFilter(newContact.name.toLowerCase()));
       toast.error(`${newContact.name} is in your Contacts`);
       return;
     }
+
     onAddContact(newContact);
-      dispatch(setFilter(''));
-      form.reset();
-
-    /*     if (isAlreadyInContacts(contacts, newContact)) {
-      dispatch(setFilter(newContact.name.toLowerCase()));
-      window.alert(`Error! ${newContact.name} is already in the contacts`);
-      return;
-    }
-
-    dispatch(addContact(newContact));
     dispatch(setFilter(''));
-    form.reset(); */ //TODO: ???
-  };
+    form.reset();
+  }
 
   return (
     <Form onSubmit={onSubmit} >
@@ -78,14 +66,3 @@ export const ContactForm = () => {
     </Form>
   );
 };
-
-/*
-TODO:
-      <Button
-        isLoading={isLoading}
-        loadingText="Submitting"
-        colorScheme="green"
-        variant="outline"
-        type="submit"
-
-      > */

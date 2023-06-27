@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Input, InputGroup, InputRightElement, Button } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
 
 export const PasswordInput = ({ name, ...rest }) => {
   const [show, setShow] = useState(false);
@@ -23,4 +24,10 @@ export const PasswordInput = ({ name, ...rest }) => {
       </InputRightElement>
     </InputGroup>
   );
+};
+
+PasswordInput.propTypes = {
+  contact: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
 };

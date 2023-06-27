@@ -1,15 +1,3 @@
-/*
-Форма стану
-- Додай у стан Redux обробку індикатора завантаження та помилки:
-    {
-      contacts: {
-        items: [],
-        isLoading: false,
-        error: null
-      },
-      filter: ""
-    }
- */
 import { configureStore } from "@reduxjs/toolkit";
 import storage from 'redux-persist/lib/storage';
 import {

@@ -7,7 +7,6 @@ import { List, Box } from '@chakra-ui/react';
 
 export const ContactList = () => {
   const visibleContacts = useSelector(selectShownContacts);
- // console.log('ContactList>>', visibleContacts);
 
   return (
     <Box>
@@ -23,5 +22,4 @@ export const ContactList = () => {
     </Box>
   );
 };
-/*
-       */
+

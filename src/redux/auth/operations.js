@@ -9,7 +9,6 @@ const token = {
   },
   remove() {
     axios.defaults.headers.common.Authorization = '';
-    //delete instance.defaults.headers.common['Authorization']
   },
 };
 
@@ -32,10 +31,7 @@ export const login = createAsyncThunk('auth/login', async (credentials, thunkAPI
   try {
     console.log('auth/login>>');
     const { data } = await axios.post('/users/login', credentials);
-    token.set(data.token); //if ('access_token' in data) setToken(data.access_token)
-    /* dispatch(getUser()) //TODO:
-			return data
-       */
+    token.set(data.token);
     return data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
@@ -49,7 +45,7 @@ export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     token.remove();
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
-    //TODO: return rejectWithValue(error.response.data.message)
+    //return rejectWithValue(error.response.data.message)
   }
 });
 

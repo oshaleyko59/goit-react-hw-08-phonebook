@@ -1,28 +1,27 @@
-//import PropTypes from 'prop-types';
 import { Text, Flex } from '@chakra-ui/react';
-//import { Colors } from 'common/COLORS';
+import { useSelector } from 'react-redux';
+import { selectAuthError } from 'redux/auth/authSelectors';
+import { selectContactsError } from 'redux/contacts/selectors';
 
-const ERR_UNKNOWN = 'Something unexpected happed...';
+export const Error = () => {
+  const errorAuth = useSelector(selectAuthError);
+  const errorContacts = useSelector(selectContactsError);
+  const error = `${
+    errorAuth && `${errorAuth}`
+  }  ${errorContacts && `${errorContacts}`}`;
 
-export const Error = ({ msg }) => {
-  const t = typeof msg;
-  console.info('Error>>', t, msg);
-
-  if (t !== 'string') {
-    msg = ERR_UNKNOWN;
-  }
+    if (!error) return null;
 
   return (
     <>
       <Flex alignItems="flex-start">
         <Text as="h2" fontSize="24px" color="red">
-          {msg}
+          {error}
         </Text>
       </Flex>
     </>
   );
 };
 
-/* Error.propTypes = {
-  msg: PropTypes.string,
-}; */
+
+//const ERR_UNKNOWN = 'Something unexpected happed...';

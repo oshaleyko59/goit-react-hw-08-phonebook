@@ -1,36 +1,27 @@
 import { useDispatch } from 'react-redux';
 import { login } from 'redux/auth/operations';
 import { PasswordInput } from '../components/PasswordInput';
-import { Input, Button, FormLabel, Stack, Box, VStack, Text } from '@chakra-ui/react';
+import {
+  Input,
+  Button,
+  FormLabel,
+  Stack,
+  Box,
+  VStack,
+  Text,
+} from '@chakra-ui/react';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function LogIn() {
   const dispatch = useDispatch();
 
-  const onSubmit = (e) => {
+  const onSubmit = e => {
     toast('on Submit');
     e.preventDefault();
     const form = e.target;
     const email = form.elements.email.value;
     const password = form.elements.password.value;
-    console.debug('Submit Log in>>'); dispatch(login({ email, password }));
-/*     try {
-      await dispatch(login({ email, password })).unwrap();
-			// navigate('/')
-      toast.success('Welcome', {
-        duration: 6000,
-        position: 'top-center',
-        icon: '👏',
-      });
-		} catch (error) {
-			toast.error('Error Login', {
-        duration: 6000,
-        position: 'top-center',
-        icon: '👏',
-      });
-		} */
-
-  //  form.reset();
+    dispatch(login({ email, password }));
   };
 
   return (
@@ -61,4 +52,4 @@ export default function LogIn() {
       </Stack>
     </VStack>
   );
-};
+}
