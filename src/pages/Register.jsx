@@ -8,10 +8,11 @@ export default function Register() {
   const dispatch = useDispatch();
   //=============================================================
   const testUser = () => {
-    const name = 'name' + Math.floor(Math.random() * 1000).toString();
+    const rand = Math.floor(Math.random() * 1000).toString();
+    const name = 'name' + rand;
     const email =
-      'test' + Math.floor(Math.random() * 1000).toString() + '@gmail.com';
-    const password = 'Pwd&' + Math.floor(Math.random() * 1000).toString();
+      'test' + rand + '@gmail.com';
+    const password = 'Password+' + rand;
 
     return { name, email, password };
   };
@@ -51,7 +52,7 @@ export default function Register() {
             <Input
               name="name"
               id="name"
-              autocomplete="username"
+              autoComplete="username"
               type="text"
               required
               minLength={3}
@@ -61,7 +62,7 @@ export default function Register() {
           </FormLabel>
         </Box>
         <Box>
-          <FormLabel for="email">email</FormLabel>
+          <FormLabel>email
           <Input
             name="email"
             type="email"
@@ -71,23 +72,23 @@ export default function Register() {
             maxLength={30}
             placeholder="email"
             autoComplete="email"
-          />
+          /></FormLabel>
         </Box>
         <Box>
-          <FormLabel for="password">password</FormLabel>
+          <FormLabel >password
           <PasswordInput
             id="password"
             name={'password'}
             autoComplete="new-password"
-          />
+          /></FormLabel>
         </Box>
         <Box>
-          <FormLabel for="copypwd">confirm password</FormLabel>
+          <FormLabel>confirm password
           <PasswordInput
             id="copypwd"
             name={'passwordCopy'}
             autoComplete="new-password"
-          />
+          /></FormLabel>
         </Box>
         <Button type="submit" colorScheme="blue">
           Register
