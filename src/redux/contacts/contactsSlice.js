@@ -2,11 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchContacts, addContact, deleteContact } from './operations';
 
 const isRejectedAction = action => {
-  return action.type.endsWith('rejected');
+  return (
+    action.type.startsWith('contacts/') && action.type.endsWith('rejected')
+  );
 };
 
 const isPendingAction = action => {
-  return action.type.endsWith('pending');
+  return action.type.startsWith('contacts/') && action.type.endsWith('pending');
 };
 
 const updateStateOnFulfilled = state => {

@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux'; //, useSelector
 import { Route, Routes } from 'react-router-dom';
 import { RestrictedRouteToComponent} from 'routs/RestrictedRoute';
 import { PrivateRouteToContacts } from 'routs/PrivateRoute';
-import { getUser } from 'redux/auth/operations';
+import { refreshUser } from 'redux/auth/operations';
 import { SharedLayout } from './SharedLayout';
 import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
@@ -26,8 +26,8 @@ export const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('dispatch(getUser())>>');
-    dispatch(getUser());
+    console.log('dispatch(refreshUser())>>');
+    dispatch(refreshUser());
   }, [dispatch]);
 
   return (

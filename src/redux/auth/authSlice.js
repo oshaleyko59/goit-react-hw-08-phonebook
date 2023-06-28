@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login, register, logout, getUser } from './operations';
+import { login, register, logout, refreshUser } from './operations';
 
 const isRejectedAction = action => {
-  return action.type.endsWith('rejected');
+  return action.type.startsWith('auth/') && action.type.endsWith('rejected');
 };
 
 const isPendingAction = action => {
-  return action.type.endsWith('pending');
+  return action.type.startsWith('auth/') && action.type.endsWith('pending');
 };
 
 const initialState = {
@@ -64,15 +64,15 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
-      .addCase(getUser.fulfilled, (state, action) => {
+      .addCase(refreshUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
-      .addCase(getUser.rejected, (state, action) => {
+/*       .addCase(v.rejected, (state, action) => {
         handleRejected(state, action);
         state.token = null;
-      })
+      }) */
       .addMatcher(isPendingAction, handlePending)
       .addMatcher(isRejectedAction, handleRejected);
   },
