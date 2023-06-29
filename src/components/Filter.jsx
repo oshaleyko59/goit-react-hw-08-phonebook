@@ -19,6 +19,7 @@ export const Filter = ({ value, onChangeFilter}) => {
         value={value}
         onChange={onChangeFilter}
         color='red'
+        background={Colors.bgYellow}
       />
     </Text>
   );

@@ -34,6 +34,7 @@ export const ContactListItem = ({contact}) => {
       </HStack>
       <Button
         type="button"
+        variant='ghost'
         onClick={onDelete}
         colorScheme="yellow"
         height="20px"

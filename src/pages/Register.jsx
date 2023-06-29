@@ -11,8 +11,8 @@ export default function Register() {
     const rand = Math.floor(Math.random() * 1000).toString();
     const name = 'name' + rand;
     const email =
-      'test' + rand + '@gmail.com';
-    const password = 'Password+' + rand;
+      name + '@gmail.com';
+    const password = 'examplepwd+' + rand;
 
     return { name, email, password };
   };

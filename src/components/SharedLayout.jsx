@@ -21,18 +21,24 @@ export const SharedLayout = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   return (
-    <VStack ml="auto" mr="auto">
+    <VStack ml="auto" mr="auto" minWidth="max-content">
       <Box
+        minWidth="max-content"
         as="header"
-        p="16px"
+        p="12px"
         w="80%"
         bg={Colors.bgYellow}
         px="32px"
         color={Colors.blue}
-        boxShadow=" 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-        x 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12)"
+        boxShadow=" 0px 2px 4px -1px rgba(0, 0, 0, 0.2)"
       >
-        <Flex as="nav" justify="space-between">
+        <Flex
+          as="nav"
+          justify="space-between"
+          minWidth="max-content"
+          alignItems="center"
+          gap="2"
+        >
           {!isLoggedIn && (
             <StyledLink to="/">
               <Text fontSize="20px">Home</Text>
@@ -40,7 +46,9 @@ export const SharedLayout = () => {
           )}
           {isLoggedIn && (
             <StyledLink to="/contacts" end>
-              <Text fontSize="20px">Contacts</Text>
+              <Text fontSize="20px" alignSelf="flex-end">
+                Contacts
+              </Text>
             </StyledLink>
           )}
           {isLoggedIn ? (
@@ -63,4 +71,17 @@ export const SharedLayout = () => {
     </VStack>
   );
 };
+/*
+const Button = styled.button`
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 2px solid ${Colors.blue};
+  background-color: ${Colors.bgYellow};
+  color: ${Colors.blue};
 
+  &:hover,
+  &:focus {
+    outline: solid 2px ${Colors.blue};
+    background-color: ${Colors.yellow};
+  }
+`; */

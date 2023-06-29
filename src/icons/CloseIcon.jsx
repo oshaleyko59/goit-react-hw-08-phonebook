@@ -1,5 +1,6 @@
-import { MdClose } from 'react-icons/md';
+
+import {FiDelete} from 'react-icons/fi'
 
 export const CloseIcon = () => {
-  return <MdClose size={16} />;
+  return <FiDelete size={20} stroke="blue" />;
 };
