@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
+import {fetchContacts} from 'redux/contacts/operations'
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -35,11 +37,13 @@ export const login = createAsyncThunk('auth/login', async (credentials, thunkAPI
     const { data } = await axios.post('/users/login', credentials);
     console.log('auth/login>>data', data);
     token.set(data.token); //if ('access_token' in data) setToken(data.access_token)
+    //dispatch(fetchContacts());
     /* dispatch(getUser()) //TODO:
 			return data
        */
     return data;
   } catch (error) {
+
     return thunkAPI.rejectWithValue(error.message);
   }
 });

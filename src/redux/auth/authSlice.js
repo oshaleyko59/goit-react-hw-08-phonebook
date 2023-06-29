@@ -1,5 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { login, register, logout, refreshUser } from './operations';
+import toast from 'react-hot-toast';
+
+function retriveErrorMsg(errObj) {
+  console.log('retriveErrorMsg>>', errObj);
+  const msgArr = [errObj.type];
+  msgArr.push(errObj.error.message);
+/*     if (errObj.payload.response) {
+      msgArr.push(errObj.payload.data.message);
+    } */
+  if (errObj.payload) {
+    msgArr.push(errObj.payload); //.name + errObj.payload.message);
+
+  }
+
+  const msg = msgArr.join('. ') // msgArr[msgArr.length-1];
+  console.log(msgArr, msg);
+  toast.error(msg);
+  return msg;
+}
 
 const isRejectedAction = action => {
   return action.type.startsWith('auth/') && action.type.endsWith('rejected');
@@ -23,27 +42,24 @@ const handlePending = state => {
 };
 
 const handleRejected = (state, action) => {
-  console.debug('handleRejected>>', action);
+  console.debug('handleRejected>>auth', action);
   state.token = null;
   state.isLoggedIn = false;
   state.isRefreshing = false;
-  state.error = action.payload
-    ? action.payload //.response.data.message
-    : action.error.message;
-
+  state.error = retriveErrorMsg(action);
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
+  /* reducers: {
 		logOut: (state) => {
 			state.access_token = ''
 			state.isLoading = false
 			state.error = ''
 			state.profile = null
 		},
-	},
+	}, */
   extraReducers: builder => {
     builder
       .addCase(register.fulfilled, (state, action) => {
@@ -79,4 +95,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
-export const { logOut } = authSlice.actions;
+//TODO: ???? export const { logOut } = authSlice.actions;

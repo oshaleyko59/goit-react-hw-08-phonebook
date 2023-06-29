@@ -11,10 +11,10 @@ import './index.css';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={null} persistor={persistor}><ChakraProvider>
         <BrowserRouter basename="goit-react-hw-08-phonebook">
-          <ChakraProvider><App /></ChakraProvider>
-        </BrowserRouter>
+          <App />
+        </BrowserRouter></ChakraProvider>
       </PersistGate>
     </Provider>
   </React.StrictMode>
