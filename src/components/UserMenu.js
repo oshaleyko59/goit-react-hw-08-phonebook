@@ -1,6 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { selectUser } from 'redux/auth/authSelectors';
-import { logout } from 'redux/auth/operations';
+import { useDispatch} from 'react-redux';
+import authOperations from '../redux/auth/auth-operations';
+import useAuth from 'hooks/useAuth';
+//import { selectUser } from 'redux/auth/authSelectors';
+//import { logout } from 'redux/auth/operations';
 import { Text,Button, Flex } from '@chakra-ui/react';
 import { LogoutIcon } from 'icons/LogoutIcon';
 import { VerifiedUserIcon } from 'icons/VerifiedUserIcon';
@@ -8,23 +10,28 @@ import { Colors } from '../common/COLORS';
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
+  const user = useAuth().user; //useSelector(authSelectors.selectUser);
 
   return (
-    <Flex minWidth='max-content' alignItems='center' gap='2'>
-      <VerifiedUserIcon />
-      <Text>{user.email}</Text>
+    <Flex  alignItems='center'>
+      <VerifiedUserIcon marginRigt='4px' />
+      <Text as='span'>{user.email}</Text>
       <Button
         colorScheme="blue"
         color={Colors.blue}
         variant="ghost"
-        onClick={() => dispatch(logout())}
+        onClick={() => dispatch(authOperations.logout())}
       >
         <LogoutIcon />
       </Button>
     </Flex>
   );
 };
+
+/* FIXME:
+ <Flex minWidth='max-content' alignItems='center' gap='2'>
+<VerifiedUserIcon />
+*/
 /*
 
         bg={Colors.bgYellow}

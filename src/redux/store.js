@@ -12,7 +12,7 @@ import {
 } from 'redux-persist';
 import { filterReducer } from "./contacts/filterSlice";
 import { contactsReducer } from "./contacts/contactsSlice";
-import authSlice from './auth/authSlice';
+import authReducer from './auth/auth-slice'; //import authSlice from './auth/authSlice';
 
 const authPersistConfig = {
   key: 'auth',
@@ -22,7 +22,7 @@ const authPersistConfig = {
 
 export const store = configureStore({
   reducer: {
-    auth: persistReducer(authPersistConfig, authSlice),
+    auth: persistReducer(authPersistConfig, authReducer), //authSlice),
     filter: filterReducer,
     contacts: contactsReducer,
   },
@@ -32,6 +32,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
+  devTools: process.env.NODE_ENV === 'development', //FIXME: added, ??? check
 });
 
 export const persistor = persistStore(store);

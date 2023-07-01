@@ -3,20 +3,24 @@ import {
   selectContactList,
   selectShownContacts,
   selectContactsIsLoading,
-} from 'redux/contacts/selectors';
+  selectContactsError,
+  selectFilter,
+} from 'redux/contacts/contacts-selectors';
 import {
   addContact,
   deleteContact,
-} from 'redux/contacts/operations';
+} from 'redux/contacts/contacts-operations';
 
 export const useContacts = () => {
   const visibleContacts = useSelector(selectShownContacts);
   const contacts = useSelector(selectContactList);
   const isLoading = useSelector(selectContactsIsLoading);
+  const filter = useSelector(selectFilter);
+  const errorMsg = useSelector(selectContactsError);
   const dispatch = useDispatch();
 
   const onAddContact = (newContact) => {
-    console.log('onaddContact(newContact))>>', newContact);
+   // console.log('onaddContact(newContact))>>', newContact);
     dispatch(addContact(newContact));
   };
 
@@ -24,5 +28,6 @@ export const useContacts = () => {
     dispatch(deleteContact(payload));
   };
 
-  return {isLoading, visibleContacts,contacts, onAddContact, onDeleteContact};
+  return {filter, errorMsg, isLoading, visibleContacts,contacts, onAddContact, onDeleteContact};
 };
+export default useContacts;

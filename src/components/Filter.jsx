@@ -9,7 +9,7 @@ import { Colors } from '../common/COLORS';
 
 export const Filter = ({ value, onChangeFilter}) => {
   return (
-    <Text as="label" fontWeight="500" color={Colors.blue}>
+    <Text as="label" mb='20px' fontWeight="500" color={Colors.blue}>
       {'Search by name: '}
       <Input
         width="auto"

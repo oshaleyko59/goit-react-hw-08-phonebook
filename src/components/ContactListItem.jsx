@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Text, HStack, Button, ListIcon} from '@chakra-ui/react';
 
-import { deleteContact } from 'redux/contacts/operations';
+import { deleteContact } from 'redux/contacts/contacts-operations';
 import { CloseIcon } from 'icons/CloseIcon';
 import { PhoneIcon } from 'icons/PhoneIcon'
 import { LiIcon } from 'icons/LiIcon';

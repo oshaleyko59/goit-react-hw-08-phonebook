@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFilter } from '../hooks/useFilter';
 import { useContacts } from '../hooks/useContacts';
-import {
-  selectContactsError,
-} from 'redux/contacts/selectors';
-import { fetchContacts } from 'redux/contacts/operations';
+//FIXME: import { todosOperations, todosSelectors } from '../redux/todos';
+import { selectContactsError } from 'redux/contacts/contacts-selectors';
+import { fetchContacts } from 'redux/contacts/contacts-operations';
+//FIXME: import Container from '../components/Container';
 import { ContactForm } from 'components/ContactForm';
 import { ContactList } from 'components/ContactList';
 import { Filter } from 'components/Filter';
@@ -16,7 +16,7 @@ import { Error } from 'components/Error';
 
 export default function Contacts() {
   const dispatch = useDispatch();
-  const error = useSelector(selectContactsError);
+  const error = useSelector(selectContactsError); //FIXME: move to hook
   const { filter, onChangeFilter } = useFilter();
   const { isLoading, visibleContacts, contacts, onDeleteContact } =
     useContacts();
@@ -25,7 +25,13 @@ export default function Contacts() {
     console.log('dispatch(fetchContacts())>>');
     dispatch(fetchContacts());
   }, [dispatch]);
-
+  /* FIXME: wrapp all into Container
+const barStyles = {// for Stack
+  display: 'flex',
+  alignItems: 'flex-end',
+  marginBottom: 20,
+};
+ */
   return (
     <Stack as="main" p="16px" w="80%" maxWidth="720">
       <Text as="h1" fontSize="32px" color={Colors.blue}>
@@ -41,10 +47,13 @@ export default function Contacts() {
       >
         Contacts
       </Text>
-      {contacts.length && (
-        <Filter value={filter} onChangeFilter={onChangeFilter} />
+      {isLoading ? (
+        <Loading isLoading loadingText="" />
+      ) : (
+        contacts.length && (
+          <Filter value={filter} onChangeFilter={onChangeFilter} />
+        )
       )}
-      {isLoading && <Loading isLoading />}
       {visibleContacts.length ? (
         <ContactList
           contacts={visibleContacts}

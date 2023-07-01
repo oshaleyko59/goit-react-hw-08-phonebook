@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
-import { register } from 'redux/auth/operations';
+import authOperations  from '../redux/auth/auth-operations';//import { register } from 'redux/auth/operat ions';
 import { PasswordInput } from '../components/PasswordInput';
-import { Input, Button, FormLabel, Stack, Box, VStack } from '@chakra-ui/react';
+import { Input, Button, FormLabel, Stack, Box, VStack, Text} from '@chakra-ui/react';
 
 export default function Register() {
   const dispatch = useDispatch();
@@ -10,8 +10,7 @@ export default function Register() {
   const testUser = () => {
     const rand = Math.floor(Math.random() * 1000).toString();
     const name = 'name' + rand;
-    const email =
-      name + '@gmail.com';
+    const email = name + '@gmail.com';
     const password = 'examplepwd+' + rand;
 
     return { name, email, password };
@@ -20,9 +19,10 @@ export default function Register() {
 
   const onClick = () => {
     const newUser = testUser();
-    console.debug('Submit TEST Register>>', newUser);
-    dispatch(register(newUser));
+    dispatch(authOperations.register(newUser));
   };
+
+  
   const onSubmit = e => {
     e.preventDefault();
     const form = e.target;
@@ -34,8 +34,7 @@ export default function Register() {
     if (password === passwordCopy) {
       const newUser = { name, email, password };
 
-      console.debug('Submit Register>>', newUser);
-      dispatch(register(newUser));
+      dispatch(authOperations.register(newUser));
       form.reset();
     } else {
       toast.error('Passwords do not match');
@@ -43,52 +42,76 @@ export default function Register() {
     }
   };
 
+  /* FIXME:
+  const dispatch = useDispatch();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleChange = ({ target: { name, value } }) => {
+    switch (name) {
+      case 'name':
+        return setName(value);
+      case 'email':
+        return setEmail(value);
+      case 'password':
+        return setPassword(value);
+      default:
+        return;
+    }
+  };
+
+  */
+
   return (
     <VStack>
+      <Text as="h2" fontSize="24px">
+        Register:
+      </Text>
       <Stack as="form" onSubmit={onSubmit} pt="32px" spacing="20px">
         <Box>
           <FormLabel>
             name
             <Input
               name="name"
-              id="name"
               autoComplete="username"
               type="text"
               required
               minLength={3}
-              maxLength={30}
-              placeholder="name"
+              maxLength={60}
             />
           </FormLabel>
         </Box>
         <Box>
-          <FormLabel>email
-          <Input
-            name="email"
-            type="email"
-            id="email"
-            required
-            minLength={3}
-            maxLength={30}
-            placeholder="email"
-            autoComplete="email"
-          /></FormLabel>
+          <FormLabel>
+            email
+            <Input
+              name="email"
+              type="email"
+              required
+              minLength={5}
+              maxLength={60}
+              autoComplete="email"
+            />
+          </FormLabel>
         </Box>
         <Box>
-          <FormLabel >password
-          <PasswordInput
-            id="password"
-            name={'password'}
-            autoComplete="new-password"
-          /></FormLabel>
+          <FormLabel>
+            password
+            <PasswordInput
+              name={'password'}
+              autoComplete="new-password"
+            />
+          </FormLabel>
         </Box>
         <Box>
-          <FormLabel>confirm password
-          <PasswordInput
-            id="copypwd"
-            name={'passwordCopy'}
-            autoComplete="new-password"
-          /></FormLabel>
+          <FormLabel>
+            confirm password
+            <PasswordInput
+              name={'passwordCopy'}
+              autoComplete="new-password"
+            />
+          </FormLabel>
         </Box>
         <Button type="submit" colorScheme="blue">
           Register

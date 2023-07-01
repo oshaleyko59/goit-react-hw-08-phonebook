@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import {
   selectShownContacts,
-} from 'redux/contacts/selectors';
+} from 'redux/contacts/contacts-selectors';
 import { ContactListItem } from 'components/ContactListItem';
 import { List, Box } from '@chakra-ui/react';
 

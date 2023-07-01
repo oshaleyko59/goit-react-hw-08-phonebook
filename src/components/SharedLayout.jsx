@@ -1,24 +1,16 @@
 import { Suspense } from 'react';
-import { Outlet, NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectIsLoggedIn } from 'redux/auth/authSelectors';
+import { Outlet } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
+import { Navigation } from './NavigationMain';
+import { NavigationAuth } from './NavigationAuth';
 import { Loading } from './Loading';
 import { UserMenu } from './UserMenu';
-import { LoginIcon } from 'icons/LoginIcon';
-import { Box, Flex,Text, VStack, HStack } from '@chakra-ui/react';
+import { Box, Flex, VStack, } from '@chakra-ui/react';
 import { Colors } from '../common/COLORS';
-import styled from 'styled-components';
 
-const StyledLink = styled(NavLink)`
-  color: ${Colors.blue};
-
-  &.active {
-    color: #7f8137;
-  }
-`;
 
 export const SharedLayout = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isLoggedIn = useAuth().isLoggedIn;
 
   return (
     <VStack ml="auto" mr="auto" minWidth="max-content">
@@ -39,22 +31,60 @@ export const SharedLayout = () => {
           alignItems="center"
           gap="2"
         >
-          {!isLoggedIn && (
-            <StyledLink to="/">
-              <Text fontSize="20px">Home</Text>
-            </StyledLink>
-          )}
-          {isLoggedIn && (
-            <StyledLink to="/contacts" end>
-              <Text fontSize="20px" alignSelf="flex-end">
-                Contacts
-              </Text>
-            </StyledLink>
-          )}
-          {isLoggedIn ? (
-            <UserMenu />
-          ) : (
-            <HStack spacing="16px">
+          <Navigation showPrivate={isLoggedIn} />
+          {isLoggedIn ? <UserMenu /> : <NavigationAuth />}
+        </Flex>
+      </Box>
+      <Suspense fallback={<Loading isLoading loadingText="Loading..." />}>
+        <Outlet />
+      </Suspense>
+    </VStack>
+  );
+};
+
+
+
+/* FIXME: move to AuthNav component
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+
+const styles = {
+  link: {
+    display: 'inline-block',
+    textDecoration: 'none',
+    padding: 12,
+    fontWeight: 700,
+    color: '#2A363B',
+  },
+  activeLink: {
+    color: '#E84A5F',
+  },
+};
+
+export default function AuthNav() {
+  return (
+    <div>
+      <NavLink
+        to="/register"
+        style={styles.link}
+        activeStyle={styles.activeLink}
+      >
+        Регистрация
+      </NavLink>
+      <NavLink
+        to="/login"
+        style={styles.link}
+        activeStyle={styles.activeLink}
+      >
+        Логин
+      </NavLink>
+    </div>
+  );
+}
+
+FIXME: >
+
+<HStack spacing="16px">
               <StyledLink to="/register">
                 <Text fontSize="20px">Register</Text>
               </StyledLink>
@@ -62,15 +92,9 @@ export const SharedLayout = () => {
                 <LoginIcon />
               </StyledLink>
             </HStack>
-          )}
-        </Flex>
-      </Box>
-      <Suspense fallback={<Loading />}>
-        <Outlet />
-      </Suspense>
-    </VStack>
-  );
-};
+*/
+
+
 /*
 const Button = styled.button`
   padding: 4px 8px;
@@ -85,3 +109,19 @@ const Button = styled.button`
     background-color: ${Colors.yellow};
   }
 `; */
+
+
+
+/*
+          { {!isLoggedIn && (
+            <StyledLink to="/">
+              <Text fontSize="20px">Home</Text>
+            </StyledLink>
+          )}
+          {isLoggedIn && (
+            <StyledLink to="/contacts" end>
+              <Text fontSize="20px" alignSelf="flex-end">
+                Contacts
+              </Text>
+            </StyledLink>
+          )} */

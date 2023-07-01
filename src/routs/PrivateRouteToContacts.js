@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import  useAuth  from '../hooks/useAuth';
 import Contacts from '../pages/Contacts';
 
 // /contacts - приватний маршрут для роботи зі списком контактів користувача
@@ -10,9 +10,7 @@ import Contacts from '../pages/Contacts';
  */
 
 export const PrivateRouteToContacts = () => {
-  const { isLoggedIn, isRefreshing } = useAuth();
+  const { isRefreshingUser, isLoggedIn } = useAuth();
 
-  const shouldRedirect = !isLoggedIn && !isRefreshing;
-
-  return shouldRedirect ? <Navigate to='/' /> : <Contacts />;
+  return isRefreshingUser ? <></> :!isLoggedIn ? <Navigate to="/" /> : <Contacts />;
 };

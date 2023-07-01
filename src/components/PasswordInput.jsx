@@ -10,13 +10,15 @@ export const PasswordInput = (props) => {
   return (
     <InputGroup size="md">
       <Input
+       // type="password"
         required
         minLength={7}
         maxLength={30}
         name={name}
         pr="4.5rem"
         type={show ? 'text' : 'password'}
-        placeholder="Enter password" {...rest}
+        placeholder="Enter password"
+        {...rest}
       />
       <InputRightElement width="4.5rem">
         <Button h="1.75rem" size="sm" onClick={handleClick}>

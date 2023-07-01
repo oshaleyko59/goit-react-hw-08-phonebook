@@ -1,11 +1,13 @@
 import { Text, Flex } from '@chakra-ui/react';
-import { useSelector } from 'react-redux';
-import { selectAuthError } from 'redux/auth/authSelectors';
-import { selectContactsError } from 'redux/contacts/selectors';
+import useAuth from '../hooks/useAuth';
+import useContacts from '../hooks/useContacts';
+//import { useSelector } from 'react-redux';
+//import { selectAuthError } from 'redux/auth/authSelectors';
+//import { selectContactsError } from 'redux/contacts/selectors';
 
 export const Error = () => {
-  const errorAuth = useSelector(selectAuthError);
-  const errorContacts = useSelector(selectContactsError);
+  const errorAuth = useAuth().errorMsg;
+  const errorContacts = useContacts().errorMsg;
   const error = `${
     errorAuth && `${errorAuth}`
   }  ${errorContacts && `${errorContacts}`}`;
