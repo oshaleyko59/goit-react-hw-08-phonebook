@@ -1,18 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { setFirstView } from 'redux/firstViewSlice';
 import apiContacts from '../../api/contacts';
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
-  async (_, { rejectWithValue }) => {
-    console.log('contacts/fetchAll>>');
+  async (_, thunkAPI) => {
     try {
       const contacts = await apiContacts.getAll();
-      console.log('fetchContacts>>', contacts);
+      thunkAPI.dispatch(setFirstView(true)); //TODO:
+      console.log('fetchContacts>>');//, contacts
       return contacts;
 
     } catch (error) {
-      console.log('fetchContacts>>', error);
-      return rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -20,7 +20,6 @@ export const fetchContacts = createAsyncThunk(
 export const addContact = createAsyncThunk(
   'contacts/addContact',
   async (contact, { rejectWithValue }) => {
-    console.log('contacts/addContact>>');
     try {
       const contacts = await apiContacts.post(contact);
       return contacts;
@@ -33,7 +32,6 @@ export const addContact = createAsyncThunk(
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (id, { rejectWithValue }) => {
-    console.log('contacts/deleteContact>>');
     try {
       const contacts = await apiContacts.deleteById(id);
       return contacts;

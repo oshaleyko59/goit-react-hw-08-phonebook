@@ -12,7 +12,9 @@ import {
 } from 'redux-persist';
 import { filterReducer } from "./contacts/filterSlice";
 import { contactsReducer } from "./contacts/contactsSlice";
-import authReducer from './auth/auth-slice'; //import authSlice from './auth/authSlice';
+import authReducer from './auth/auth-slice';
+import { firstViewReducer } from "./firstViewSlice";
+import { errorMessageReducer } from "./errorSlice";
 
 const authPersistConfig = {
   key: 'auth',
@@ -25,6 +27,8 @@ export const store = configureStore({
     auth: persistReducer(authPersistConfig, authReducer), //authSlice),
     filter: filterReducer,
     contacts: contactsReducer,
+    firstView: firstViewReducer,
+    errorMessageReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

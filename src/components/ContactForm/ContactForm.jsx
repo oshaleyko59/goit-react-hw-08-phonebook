@@ -14,7 +14,7 @@ const isAlreadyInContacts = (contacts, newContact) => {
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const { onAddContact, contacts } = useContacts();
+  const { onAddContact, allContacts } = useContacts();
 
   const onSubmit = async e => {
     e.preventDefault();
@@ -27,7 +27,7 @@ export const ContactForm = () => {
         .join(' '),
       number: form.elements.number.value,
     };
-    if (isAlreadyInContacts(contacts, newContact)) {
+    if (isAlreadyInContacts(allContacts, newContact)) {
       dispatch(setFilter(newContact.name.toLowerCase()));
       toast.error(`${newContact.name} is in your Contacts`);
       return;

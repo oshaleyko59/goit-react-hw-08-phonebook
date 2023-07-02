@@ -23,5 +23,4 @@ const onRefreshUser = () => dispatch(authOperations.fetchCurrentUser());//TODO: 
   };
 };
 
-
 export default useAuth;

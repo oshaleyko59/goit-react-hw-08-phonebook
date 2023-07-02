@@ -1,13 +1,10 @@
-import { useSelector } from 'react-redux';
-import {
-  selectShownContacts,
-} from 'redux/contacts/contacts-selectors';
+import useContacts from 'hooks/useContacts';
 import { ContactListItem } from 'components/ContactListItem';
 import { List, Box } from '@chakra-ui/react';
 
 export const ContactList = () => {
-  const visibleContacts = useSelector(selectShownContacts);
-
+  const { visibleContacts } = useContacts();
+  
   return (
     <Box>
       {visibleContacts && (
@@ -22,4 +19,3 @@ export const ContactList = () => {
     </Box>
   );
 };
-

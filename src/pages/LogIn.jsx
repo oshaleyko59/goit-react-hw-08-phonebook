@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import authOperations from '../redux/auth/auth-operations'; //import { login } from 'redux/auth/opera tions';
+import authOperations from '../redux/auth/auth-operations';
 import { PasswordInput } from '../components/PasswordInput';
 import {
   Input,
@@ -40,7 +40,8 @@ export default function LogIn() {
     const form = e.target;
     const email = form.elements.email.value;
     const password = form.elements.password.value;
-    dispatch(authOperations.login({ email, password }));
+    //dispatch(authOperations.login({ email, password }));
+        dispatch(authOperations.loginPlus({ email, password }));
   };
 
   return (

@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useFilter } from '../hooks/useFilter';
 import { useContacts } from '../hooks/useContacts';
-//FIXME: import { todosOperations, todosSelectors } from '../redux/todos';
-import { selectContactsError } from 'redux/contacts/contacts-selectors';
-import { fetchContacts } from 'redux/contacts/contacts-operations';
+import { setFirstView } from 'redux/firstViewSlice';
+import { useFirstView } from 'hooks/useFirstView';
 //FIXME: import Container from '../components/Container';
 import { ContactForm } from 'components/ContactForm';
 import { ContactList } from 'components/ContactList';
@@ -16,22 +15,17 @@ import { Error } from 'components/Error';
 
 export default function Contacts() {
   const dispatch = useDispatch();
-  const error = useSelector(selectContactsError); //FIXME: move to hook
+  const firstView = useFirstView().firstView;
   const { filter, onChangeFilter } = useFilter();
-  const { isLoading, visibleContacts, contacts, onDeleteContact } =
+  const { isBusy, visibleContacts, isEmpty,  onDeleteContact } =
     useContacts();
 
   useEffect(() => {
-    console.log('dispatch(fetchContacts())>>');
-    dispatch(fetchContacts());
-  }, [dispatch]);
-  /* FIXME: wrapp all into Container
-const barStyles = {// for Stack
-  display: 'flex',
-  alignItems: 'flex-end',
-  marginBottom: 20,
-};
- */
+    if (firstView === true) {
+      dispatch(setFirstView(false));
+    }
+  }, [dispatch, firstView]);
+
   return (
     <Stack as="main" p="16px" w="80%" maxWidth="720">
       <Text as="h1" fontSize="32px" color={Colors.blue}>
@@ -47,22 +41,26 @@ const barStyles = {// for Stack
       >
         Contacts
       </Text>
-      {isLoading ? (
+      <Error />
+      {isBusy ? (
         <Loading isLoading loadingText="" />
       ) : (
-        contacts.length && (
-          <Filter value={filter} onChangeFilter={onChangeFilter} />
-        )
+        !isEmpty && <Filter value={filter} onChangeFilter={onChangeFilter} />
       )}
-      {visibleContacts.length ? (
+      {visibleContacts.length && (
         <ContactList
           contacts={visibleContacts}
           onDeleteContact={onDeleteContact}
         />
-      ) : (
-        <Error msg={'No contacts found!'} />
       )}
-      {error && <Error msg={error} />}
     </Stack>
   );
 }
+
+/* FIXME: wrapp all into Container
+const barStyles = {// for Stack
+  display: 'flex',
+  alignItems: 'flex-end',
+  marginBottom: 20,
+};
+ */

@@ -6,15 +6,13 @@ function retriveErrorMsg(errObj) { //FIXME:
   console.log('retriveErrorMsg>>', errObj);
   const msgArr = [errObj.type];
   msgArr.push(errObj.error.message);
-  /*     if (errObj.payload.response) {
-      msgArr.push(errObj.payload.data.message);
-    } */
+
   if (errObj.payload) {
     msgArr.push(errObj.payload); //.name + errObj.payload.message);
   }
 
   const msg = msgArr.join('. '); // msgArr[msgArr.length-1];
-    //  console.log(msgArr, msg);
+    //  cons ole.log(msgArr, msg);
       toast.error(msg);
   return msg;
 }
@@ -32,8 +30,10 @@ const initialState = {
   token: null,
   isLoggedIn: false,
 
-  isRefreshingUser: false,
+  isRefreshingUser: true,  //false,
   errorMsg: '',
+
+  isFirstView: true //TODO:
 };
 
 const authSlice = createSlice({
@@ -46,7 +46,7 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.isLoggedIn = true;
       })
-      .addCase(authOperations.login.fulfilled, (state, action) => {
+      .addCase(authOperations.loginPlus.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
@@ -80,3 +80,7 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
+
+  /*     if (errObj.payload.response) {
+      msgArr.push(errObj.payload.data.message);
+    } */

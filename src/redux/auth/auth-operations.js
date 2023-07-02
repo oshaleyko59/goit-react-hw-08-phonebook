@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { fetchContacts } from 'redux/contacts/contacts-operations';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -13,6 +14,7 @@ const token = {
   },
 };
 
+
 /* ****************** register new user **************************
  * POST @ /users/signup * body: { name, email, password }
  * После успешной регистрации => токен в HTTP-заголовок */
@@ -20,7 +22,6 @@ const register = createAsyncThunk(
   'auth/register',
   async (userData, thunkAPI) => {
     try {
-      console.log('auth/register>>userData', userData);
       const { data } = await axios.post('/users/signup', userData);
       token.set(data.token);
       return data;
@@ -30,16 +31,14 @@ const register = createAsyncThunk(
   }
 );
 
-/* ************** login (basically, ask for new token ***************
+/* ************** login and fetch contacts ***************
  * POST @ /users/login * body: { email, password }
  * После успешного логина => токен в HTTP-заголовок */
-const login = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
+const loginPlus = createAsyncThunk('auth/loginPlus', async (credentials, thunkAPI) => {
   try {
-    console.log('auth/login>>credentials', credentials);
     const { data } = await axios.post('/users/login', credentials);
-   // console.log('auth/login>>data', data);
     token.set(data.token);
-
+    thunkAPI.dispatch(fetchContacts());
     return data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
@@ -51,7 +50,6 @@ const login = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
  * После успешного логаута, удаляем токен из HTTP-заголовка  */
 const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    console.log('auth/logout>>');
     await axios.post('/users/logout');
     token.remove();
 
@@ -79,6 +77,7 @@ const fetchCurrentUser = createAsyncThunk(
     token.set(persistedToken);
     try {
       const { data } = await axios.get('/users/current');
+      thunkAPI.dispatch(fetchContacts());
       return data;
     } catch (error) {
       console.debug(error); //FIXME: retriveErrorMsg?
@@ -87,10 +86,15 @@ const fetchCurrentUser = createAsyncThunk(
   }
 );
 
+
 const authOperations = {
   register,
   logout,
-  login,
+  loginPlus,
   fetchCurrentUser,
 };
 export default authOperations;
+
+//    con sole.log('auth/logout>>');
+//    conso le.log('auth/loginPlus>>data', data);
+//     co nsole.log('auth/register>>userData', userData);
