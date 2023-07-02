@@ -12,7 +12,7 @@ function retriveErrorMsg(errObj) { //FIXME:
   }
 
   const msg = msgArr.join('. '); // msgArr[msgArr.length-1];
-    //  cons ole.log(msgArr, msg);
+    console.log(msgArr, msg);
       toast.error(msg);
   return msg;
 }
@@ -74,6 +74,7 @@ const authSlice = createSlice({
       .addMatcher(isRejectedAction, (state, action) => {
         console.log('handleRejected>>auth', action);
         state.isLoggedIn = false;
+   //TODO:     dispatch(''); //'NO_TOKEN'); //'No token in the local storage'
         state.errorMsg = retriveErrorMsg(action);
       });
   },

@@ -2,6 +2,8 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchContacts } from 'redux/contacts/contacts-operations';
 
+import { setFirstView } from 'redux/firstViewSlice';
+
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
 //******************* token helper ***********************
@@ -71,7 +73,8 @@ const fetchCurrentUser = createAsyncThunk(
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
     if (persistedToken === null) {
-      return thunkAPI.rejectWithValue('No token in the local storage');
+      thunkAPI.dispatch(setFirstView(false)); //TODO:
+      return thunkAPI.rejectWithValue('NO_TOKEN'); //'No token in the local storage'
     }
 
     token.set(persistedToken);
@@ -85,7 +88,6 @@ const fetchCurrentUser = createAsyncThunk(
     }
   }
 );
-
 
 const authOperations = {
   register,

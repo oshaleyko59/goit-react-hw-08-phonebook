@@ -1,27 +1,25 @@
 import {
   VStack,
-  Text,
+  Text, Button
 } from '@chakra-ui/react';
-import useAuth  from 'hooks/useAuth';
-import useContacts from 'hooks/useContacts';
+import { Navigate } from 'react-router-dom';
+import { useError } from 'hooks/useError';
+/* import useAuth  from 'hooks/useAuth';
+import useContacts from 'hooks/useContacts'; */
 
 export const ErrorPage = () => {
-  const errAuth = useAuth().errorMsg;
-  const errContacts = useContacts().errorMsg;
-
+  const { errMessage } = useError();
+/*   const errAuth = useAuth().errorMsg;
+  const errContacts = useContacts().errorMsg; */
+  console.log('ErrorPage>>errMessage', errMessage);
+  
   return (
     <VStack>
-      {errAuth && (
-        <Text as="h2" fontSize="24px">
-          {errAuth}
-        </Text>
-      )}
-      {errContacts && (
-        <Text as="h2" fontSize="24px">
-          {errAuth}
-        </Text>
-      )}
-      {!(errAuth || errContacts) (<Text>No errors :)</Text>)}
+      <Text as="h2" fontSize="24px">
+        ERROR:
+      </Text>
+      <Text>{errMessage || 'No errors'}</Text>
+      <Button onClick={() => <Navigate to="/" />}>GO HOME</Button>
     </VStack>
   );
 }
