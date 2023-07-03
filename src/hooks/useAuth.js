@@ -7,16 +7,14 @@ const useAuth = () => {
   const isRefreshingUser = useSelector(authSelectors.selectIsRefreshing);
   const user = useSelector(authSelectors.selectUser);
   const errorMsg = useSelector(authSelectors.selectErrorMsg);
-  const token = useSelector(authSelectors.selectToken);
   const dispatch = useDispatch();
 
-const onRefreshUser = () => dispatch(authOperations.fetchCurrentUser());//TODO: useMemo?
+const onRefreshUser = () => dispatch(authOperations.fetchCurrentUser());
   const onLogout = () => dispatch(authOperations.logout());
   return {
     isLoggedIn,
     isRefreshingUser,
     user,
-    token,
     errorMsg,
     onLogout,
     onRefreshUser,

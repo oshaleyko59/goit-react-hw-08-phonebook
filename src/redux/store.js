@@ -13,8 +13,7 @@ import {
 import { filterReducer } from "./contacts/filterSlice";
 import { contactsReducer } from "./contacts/contactsSlice";
 import authReducer from './auth/auth-slice';
-import { firstViewReducer } from "./firstViewSlice";
-import { errorMessageReducer } from "./errorSlice";
+//TODO: import { errorMessageReducer } from "./errorSlice";
 
 const authPersistConfig = {
   key: 'auth',
@@ -24,11 +23,10 @@ const authPersistConfig = {
 
 export const store = configureStore({
   reducer: {
-    auth: persistReducer(authPersistConfig, authReducer), //authSlice),
+    auth: persistReducer(authPersistConfig, authReducer),
     filter: filterReducer,
     contacts: contactsReducer,
-    firstView: firstViewReducer,
-    errorMessageReducer
+    //TODO: errorMessageReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -36,7 +34,8 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-  devTools: process.env.NODE_ENV === 'development', //FIXME: added, ??? check
 });
 
 export const persistor = persistStore(store);
+
+ // devTools: process.env.NODE_ENV === 'development', //??? check

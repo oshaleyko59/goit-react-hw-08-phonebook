@@ -12,5 +12,5 @@ import Contacts from '../pages/Contacts';
 export const PrivateRouteToContacts = () => {
   const { isRefreshingUser, isLoggedIn } = useAuth();
 
-  return isRefreshingUser ? <></> :!isLoggedIn ? <Navigate to="/" /> : <Contacts />;
+  return isRefreshingUser ? <></> : isLoggedIn ? <Contacts /> : <Navigate to="/" />;
 };

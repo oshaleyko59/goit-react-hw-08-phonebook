@@ -1,28 +1,12 @@
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
-import authOperations  from '../redux/auth/auth-operations';//import { register } from 'redux/auth/operat ions';
+import authOperations from '../redux/auth/auth-operations';
 import { PasswordInput } from '../components/PasswordInput';
 import { Input, Button, FormLabel, Stack, Box, VStack, Text} from '@chakra-ui/react';
 
 export default function Register() {
   const dispatch = useDispatch();
-  //=============================================================
-  const testUser = () => {
-    const rand = Math.floor(Math.random() * 1000).toString();
-    const name = 'name' + rand;
-    const email = name + '@gmail.com';
-    const password = 'examplepwd+' + rand;
 
-    return { name, email, password };
-  };
-  //=============================================================
-
-  const onClick = () => {
-    const newUser = testUser();
-    dispatch(authOperations.register(newUser));
-  };
-
-  
   const onSubmit = e => {
     e.preventDefault();
     const form = e.target;
@@ -41,27 +25,6 @@ export default function Register() {
       return console.error('Passwords do not match');
     }
   };
-
-  /* FIXME:
-  const dispatch = useDispatch();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleChange = ({ target: { name, value } }) => {
-    switch (name) {
-      case 'name':
-        return setName(value);
-      case 'email':
-        return setEmail(value);
-      case 'password':
-        return setPassword(value);
-      default:
-        return;
-    }
-  };
-
-  */
 
   return (
     <VStack>
@@ -116,10 +79,31 @@ export default function Register() {
         <Button type="submit" colorScheme="blue">
           Register
         </Button>
-        <Button type="button" colorScheme="blue" onClick={onClick}>
-          Register TEST USER
-        </Button>
       </Stack>
     </VStack>
   );
 }
+
+
+/*   //========================TEST USER===========================
+  const testUser = () => {
+    const rand = Math.floor(Math.random() * 1000).toString();
+    const name = 'name' + rand;
+    const email = name + '@gmail.com';
+    const password = 'examplepwd+' + rand;
+
+    return { name, email, password };
+  };
+
+  const onClick = () => {
+    const newUser = testUser();
+    dispatch(authOperations.register(newUser));
+  };
+
+
+        <Button type="button" colorScheme="blue" onClick={onClick}>
+          Register TEST USER
+        </Button>
+  */
+
+

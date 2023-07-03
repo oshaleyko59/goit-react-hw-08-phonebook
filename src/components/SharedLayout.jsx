@@ -43,19 +43,3 @@ export const SharedLayout = () => {
 };
 
 
-//FIXME: 
-/*
-const Button = styled.button`
-  padding: 4px 8px;
-  border-radius: 8px;
-  border: 2px solid ${Colors.blue};
-  background-color: ${Colors.bgYellow};
-  color: ${Colors.blue};
-
-  &:hover,
-  &:focus {
-    outline: solid 2px ${Colors.blue};
-    background-color: ${Colors.yellow};
-  }
-`; */
-

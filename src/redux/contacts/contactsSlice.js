@@ -37,29 +37,29 @@ const handlePending = state => {
 };
 
 const handleRejected = (state, action) => {
-  // cons ole.log('handleRejected>>', action);
   state.isBusy = false;
-  state.rejectMsg = retriveErrorMsg(action);
+  state.rejectMsg = retriveErrorMsg(action); //TODO:
+};
+
+const initialState = {
+  items: null,
+  isBusy: false,
+  rejectMsg: '',
 };
 
 const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: {
-    items: null, //[]
-    isBusy: false,
-    isFetched: false,
-    rejectMsg: '',
+  initialState,
+  reducers: {
+    removeContacts() {
+      return initialState;
+    },
   },
-
   extraReducers: builder => {
     builder
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.isBusy = false;
         state.items = action.payload;
-        state.isFetched = true;
-      })
-      .addCase(fetchContacts.rejected, (state, action) => {
-        state.isFetched = false; //TODO: ??? true???
       })
       .addCase(addContact.fulfilled, (state, action) => {
         state.isBusy = false;
@@ -77,23 +77,5 @@ const contactsSlice = createSlice({
   },
 });
 
+export const { removeContacts } = contactsSlice.actions; 
 export const contactsReducer = contactsSlice.reducer;
-
-//        cons ole.log('fetchContacts.fulfilled>>', action);
-
-/*     if (errObj.payload.response) {
-      msgArr.push(errObj.payload.data.message);
-    } */
-
-/* function retriveErrorMsg(errObj) {
- // conso le.log('retriveErrorMsg>>', errObj);
-  const msgArr = [errObj.message];
-  if (errObj.payload) {
-    msgArr.push(errObj.payload.name + errObj.payload.message);
-    if (errObj.payload.response) {
-      msgArr.push(errObj.payload.data.message);
-    }
-  }
-//  conso le.log(msgArr);
-  return msgArr[msgArr.lastIndexOf];
-} */

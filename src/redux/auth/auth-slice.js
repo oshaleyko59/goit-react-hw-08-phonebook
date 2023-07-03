@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import  authOperations from './auth-operations';
-import toast from 'react-hot-toast';
+//TODO: import toast from 'react-hot-toast';
 
-function retriveErrorMsg(errObj) { //FIXME:
+function retriveErrorMsg(errObj) {  //TODO:
   console.log('retriveErrorMsg>>', errObj);
   const msgArr = [errObj.type];
   msgArr.push(errObj.error.message);
@@ -12,8 +12,8 @@ function retriveErrorMsg(errObj) { //FIXME:
   }
 
   const msg = msgArr.join('. '); // msgArr[msgArr.length-1];
-    console.log(msgArr, msg);
-      toast.error(msg);
+  console.log(msgArr, msg);
+  //TODO:  toast.error(msg);
   return msg;
 }
 
@@ -30,10 +30,8 @@ const initialState = {
   token: null,
   isLoggedIn: false,
 
-  isRefreshingUser: true,  //false,
+  isRefreshingUser: true,
   errorMsg: '',
-
-  isFirstView: true //TODO:
 };
 
 const authSlice = createSlice({
@@ -74,7 +72,6 @@ const authSlice = createSlice({
       .addMatcher(isRejectedAction, (state, action) => {
         console.log('handleRejected>>auth', action);
         state.isLoggedIn = false;
-   //TODO:     dispatch(''); //'NO_TOKEN'); //'No token in the local storage'
         state.errorMsg = retriveErrorMsg(action);
       });
   },

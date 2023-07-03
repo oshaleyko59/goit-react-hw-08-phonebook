@@ -4,10 +4,7 @@ import { setErrorMessage} from "redux/errorSlice";
 export const selectContactList = state => state.contacts.items;
 export const selectContactsIsBusy = state => state.contacts.isBusy;
 export const selectContactsError = state => state.contacts.rejectMsg;
-export const selectIsFetched = state => state.contacts.isFetched;
-
 export const selectFilter = state => state.filter;
-export const selectFirstView = state => state.firstView;
 
 export const selectShownContacts = createSelector(
   [selectContactList, selectFilter],

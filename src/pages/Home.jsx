@@ -6,45 +6,19 @@ import {
   SkeletonText,
   Skeleton,
 } from '@chakra-ui/react';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Navigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
-import { setFirstView } from 'redux/firstViewSlice';
-import { useFirstView } from 'hooks/useFirstView';
-import useContacts from 'hooks/useContacts';
 import { Error } from 'components/Error';
 import { Colors } from '../common/COLORS';
 
 
 export default function Home() {
-  const dispatch = useDispatch();
-  const firstView = useFirstView().firstView;
-  const { isEmpty, isContactsFetched } = useContacts();
-  const shoulNavigate = firstView && !isEmpty;
-
-  console.log(
-    'firstView & isEmpty : navigate?',
-    firstView,
-    isEmpty,
-    `${shoulNavigate ? 'navigate' : 'stay'}`
-  );
-  useEffect(() => {
-    if (firstView === true) {
-      dispatch(setFirstView(false));
-    }
-  }, [dispatch, firstView]);
-
   const { isRefreshingUser, user } = useAuth();
   const userName = user.name ?? 'stranger';
 
   return (
     <div>
-      <Error/>
-      <SkeletonText isLoaded={!isRefreshingUser && isContactsFetched}>
-        {shoulNavigate ? (
-          <Navigate to="/contacts" />
-        ) : (
+      <Error />
+      <SkeletonText isLoaded={!isRefreshingUser}>
           <Flex
             direction="column"
             spacing="20px"
@@ -77,7 +51,6 @@ export default function Home() {
               />
             </Skeleton>
           </Flex>
-        )}
       </SkeletonText>
     </div>
   );

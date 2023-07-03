@@ -1,30 +1,19 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { Stack, Text } from '@chakra-ui/react';
 import { useFilter } from '../hooks/useFilter';
 import { useContacts } from '../hooks/useContacts';
-import { setFirstView } from 'redux/firstViewSlice';
-import { useFirstView } from 'hooks/useFirstView';
-//FIXME: import Container from '../components/Container';
 import { ContactForm } from 'components/ContactForm';
 import { ContactList } from 'components/ContactList';
 import { Filter } from 'components/Filter';
 import { Loading } from 'components/Loading';
-import { Stack, Text } from '@chakra-ui/react';
-import { Colors } from 'common/COLORS';
+import { NewUserWelcome } from 'components/NewUserWelcome';
 import { Error } from 'components/Error';
+import { Colors } from 'common/COLORS';
 
 export default function Contacts() {
-  const dispatch = useDispatch();
-  const firstView = useFirstView().firstView;
+
   const { filter, onChangeFilter } = useFilter();
   const { isBusy, visibleContacts, isEmpty,  onDeleteContact } =
     useContacts();
-
-  useEffect(() => {
-    if (firstView === true) {
-      dispatch(setFirstView(false));
-    }
-  }, [dispatch, firstView]);
 
   return (
     <Stack as="main" p="16px" w="80%" maxWidth="720">
@@ -45,7 +34,7 @@ export default function Contacts() {
       {isBusy ? (
         <Loading isLoading loadingText="" />
       ) : (
-        !isEmpty && <Filter value={filter} onChangeFilter={onChangeFilter} />
+        isEmpty ? <NewUserWelcome /> :  <Filter value={filter} onChangeFilter={onChangeFilter} />
       )}
       {visibleContacts.length && (
         <ContactList
@@ -57,10 +46,3 @@ export default function Contacts() {
   );
 }
 
-/* FIXME: wrapp all into Container
-const barStyles = {// for Stack
-  display: 'flex',
-  alignItems: 'flex-end',
-  marginBottom: 20,
-};
- */

@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchContacts } from 'redux/contacts/contacts-operations';
-
-import { setFirstView } from 'redux/firstViewSlice';
+import { removeContacts } from '../contacts/contactsSlice';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -35,7 +34,8 @@ const register = createAsyncThunk(
 
 /* ************** login and fetch contacts ***************
  * POST @ /users/login * body: { email, password }
- * После успешного логина => токен в HTTP-заголовок */
+ * После успешного логина => токен в HTTP-заголовок
+ * plus fetch contacts for the user */
 const loginPlus = createAsyncThunk('auth/loginPlus', async (credentials, thunkAPI) => {
   try {
     const { data } = await axios.post('/users/login', credentials);
@@ -54,10 +54,10 @@ const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await axios.post('/users/logout');
     token.remove();
-
+    thunkAPI.dispatch(removeContacts());
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
-    //FIXME: return rejectWithValue(error.response.data.message)
+    //TODO: return rejectWithValue(error.response.data.message)
   }
 });
 
@@ -73,7 +73,6 @@ const fetchCurrentUser = createAsyncThunk(
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
     if (persistedToken === null) {
-      thunkAPI.dispatch(setFirstView(false)); //TODO:
       return thunkAPI.rejectWithValue('NO_TOKEN'); //'No token in the local storage'
     }
 
@@ -83,7 +82,7 @@ const fetchCurrentUser = createAsyncThunk(
       thunkAPI.dispatch(fetchContacts());
       return data;
     } catch (error) {
-      console.debug(error); //FIXME: retriveErrorMsg?
+      console.debug(error); //TODO: retriveErrorMsg?
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -97,6 +96,3 @@ const authOperations = {
 };
 export default authOperations;
 
-//    con sole.log('auth/logout>>');
-//    conso le.log('auth/loginPlus>>data', data);
-//     co nsole.log('auth/register>>userData', userData);

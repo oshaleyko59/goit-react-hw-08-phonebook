@@ -13,35 +13,13 @@ import {
 
 export default function LogIn() {
   const dispatch = useDispatch();
-  /* FIXME: ????
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
-  const handleChange = ({ target: { name, value } }) => {
-    switch (name) {
-      case 'email':
-        return setEmail(value);
-      case 'password':
-        return setPassword(value);
-      default:
-        return;
-    }
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    dispatch(authOperations.logIn({ email, password }));
-    setEmail('');
-    setPassword('');
-  };
- */
   const onSubmit = e => {
     e.preventDefault();
     const form = e.target;
     const email = form.elements.email.value;
     const password = form.elements.password.value;
-    //dispatch(authOperations.login({ email, password }));
-        dispatch(authOperations.loginPlus({ email, password }));
+    dispatch(authOperations.loginPlus({ email, password }));
   };
 
   return (
@@ -63,10 +41,7 @@ export default function LogIn() {
         </Box>
         <Box>
           <FormLabel>Password</FormLabel>
-          <PasswordInput
-            name={'password'}
-            autoComplete="current-password"
-          />
+          <PasswordInput name={'password'} autoComplete="current-password" />
         </Box>
         <Button type="submit" colorScheme="blue">
           Log in

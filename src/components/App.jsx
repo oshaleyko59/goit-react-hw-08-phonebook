@@ -23,19 +23,20 @@ import LogIn from '../pages/LogIn';
 import Register from '../pages/Register';
 import { ErrorPage } from '../pages/ErrorPage';
 
-import { useError } from 'hooks/useError';
+//import { useError } from 'hooks/useError';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { errMessage } = useError();
-  console.log('App>>errMessage', errMessage);
+  //const { errMessage } = useError();
+  //console.log('App>>errMessage', errMessage);
+
   useEffect(() => {
     dispatch(authOperations.fetchCurrentUser());
   }, [dispatch]);
 
-  if (errMessage) {
-    return <Navigate to="/error-page" />;
-  }
+  /* if (errMessage) {
+    return <Navigate to="/error-page" />; //TODO:
+  } */
 
   return (
     <>

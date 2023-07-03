@@ -1,11 +1,12 @@
 import toast from 'react-hot-toast';
+import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { setFilter } from 'redux/contacts/filterSlice';
 import { SubmitBtn, Form, Label, Input } from './styled';
 import { useContacts } from '../../hooks/useContacts';
 
 const isAlreadyInContacts = (contacts, newContact) => {
-  const res= contacts.some(
+  const res = contacts.some(
     contact =>
       contact.name.toLocaleLowerCase() === newContact.name.toLowerCase()
   );
@@ -14,12 +15,15 @@ const isAlreadyInContacts = (contacts, newContact) => {
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const { onAddContact, allContacts } = useContacts();
+  const { onAddContact, allContacts} = useContacts();
+
+  const formRef = useRef();
 
   const onSubmit = async e => {
     e.preventDefault();
 
     const form = e.target;
+
     const newContact = {
       name: form.elements.name.value
         .split(' ')
@@ -34,12 +38,11 @@ export const ContactForm = () => {
     }
 
     onAddContact(newContact);
-    //TODO: ??? dispatch(setFilter(''));
     form.reset();
-  }
+  };
 
   return (
-    <Form onSubmit={onSubmit} >
+    <Form ref={formRef} onSubmit={onSubmit}>
       <Label>
         Name
         <Input
