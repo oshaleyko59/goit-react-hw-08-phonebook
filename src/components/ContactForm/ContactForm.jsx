@@ -31,7 +31,7 @@ export const ContactForm = () => {
         .join(' '),
       number: form.elements.number.value,
     };
-    if (isAlreadyInContacts(allContacts, newContact)) {
+    if (allContacts && isAlreadyInContacts(allContacts, newContact)) {
       dispatch(setFilter(newContact.name.toLowerCase()));
       toast.error(`${newContact.name} is in your Contacts`);
       return;
