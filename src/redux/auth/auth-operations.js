@@ -2,6 +2,7 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchContacts } from 'redux/contacts/contacts-operations';
 import { removeContacts } from '../contacts/contactsSlice';
+import { setFilter } from '../contacts/filterSlice';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -63,6 +64,7 @@ const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     await axios.post('/users/logout');
     token.remove();
     thunkAPI.dispatch(removeContacts());
+          thunkAPI.dispatch(setFilter(''));
   } catch (error) {
     const msg = transformErrorMsg(error.response);
     return thunkAPI.rejectWithValue(msg);
