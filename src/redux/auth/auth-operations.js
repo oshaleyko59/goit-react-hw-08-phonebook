@@ -16,7 +16,7 @@ const token = {
 };
 
 const transformErrorMsg = ({ data, status, statusText }) => {
-  console.log(`Response:  ${status} ${statusText} ${data}`); //data, status, statusText
+ // console.log(`Response:  ${status} ${statusText} ${data}`); //data, status, statusText
   return status;
 };
 

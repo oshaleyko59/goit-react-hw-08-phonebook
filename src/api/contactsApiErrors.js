@@ -9,7 +9,7 @@ const contactsApiErrors = {
 };
 
 export function transformErrorMsg(errcode, type) {
-  console.log('transformErrorMsg', errcode, type);
+
   if (!errcode) {
     if (type === 'auth/refresh/rejected') {
       return '';
@@ -28,6 +28,6 @@ export function transformErrorMsg(errcode, type) {
   } */
 
   const msg = contactsApiErrors[type][errcode];
-  console.log('transformErrorMsg', msg);
+
   return msg;
 }

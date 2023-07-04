@@ -22,7 +22,7 @@ export default function Register() {
       form.reset();
     } else {
       toast.error('Passwords do not match');
-      return console.error('Passwords do not match');
+  //  TODO:  return console.error('Passwords do not match');
     }
   };
 

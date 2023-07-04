@@ -49,7 +49,9 @@ const contactsSlice = createSlice({
       })
       .addCase(addContact.fulfilled, (state, action) => {
         state.isBusy = false;
-        state.items.unshift(action.payload);
+        if (state.items) { state.items.unshift(action.payload) } else {
+          state.items = [action.payload];
+        };
       })
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.isBusy = false;

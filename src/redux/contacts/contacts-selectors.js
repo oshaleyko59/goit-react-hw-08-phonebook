@@ -23,7 +23,7 @@ export const selectShownContacts = createSelector(
 export const selectIsEmpty = createSelector(
   [selectContactList],
   (contacts) => {
-    console.log('selectIsEmpty>>', contacts);
+
     if (contacts) {
       return contacts.length === 0;
     }

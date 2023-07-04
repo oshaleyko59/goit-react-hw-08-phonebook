@@ -57,7 +57,7 @@ const authSlice = createSlice({
         state.errorMsg = '';
       })
       .addMatcher(isRejectedAction, (state, action) => {
-        console.log('authRejected>>', action);
+
         state.isLoggedIn = false;
         const errm = transformErrorMsg(action.payload, action.type);
         state.errorMsg = errm;
