@@ -2,6 +2,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import apiContacts from '../../api/contacts';
 import { setFilter } from './filterSlice';
 
+const transformErrorMsg = ({ data, status, statusText }) => {
+  console.log(`Response:  ${status} ${statusText} ${data}`); //data, status, statusText
+  return status;
+};
+
+
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
   async (_, thunkAPI) => {
@@ -10,7 +16,8 @@ export const fetchContacts = createAsyncThunk(
       return contacts;
 
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      const msg = transformErrorMsg(error.response);
+      return thunkAPI.rejectWithValue(msg);
     }
   }
 );
@@ -23,19 +30,21 @@ export const addContact = createAsyncThunk(
       thunkAPI.dispatch(setFilter(''));
       return contacts;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      const msg = transformErrorMsg(error.response);
+      return thunkAPI.rejectWithValue(msg);
     }
   }
 );
 
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
-  async (id, { rejectWithValue }) => {
+  async (id, thunkAPI) => {
     try {
       const contacts = await apiContacts.deleteById(id);
       return contacts;
     } catch (error) {
-      return rejectWithValue(error);
+      const msg = transformErrorMsg(error.response);
+      return thunkAPI.rejectWithValue(msg);
     }
   }
 );

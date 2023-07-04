@@ -11,7 +11,7 @@
 */
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { RestrictedRouteToComponent } from 'routs/RestrictedRouteToComponent';
 import { PrivateRouteToContacts } from 'routs/PrivateRouteToContacts';
@@ -21,22 +21,14 @@ import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
 import LogIn from '../pages/LogIn';
 import Register from '../pages/Register';
-import { ErrorPage } from '../pages/ErrorPage';
-
-//import { useError } from 'hooks/useError';
 
 export const App = () => {
   const dispatch = useDispatch();
-  //const { errMessage } = useError();
-  //console.log('App>>errMessage', errMessage);
 
   useEffect(() => {
     dispatch(authOperations.fetchCurrentUser());
   }, [dispatch]);
 
-  /* if (errMessage) {
-    return <Navigate to="/error-page" />; //TODO:
-  } */
 
   return (
     <>
@@ -54,10 +46,7 @@ export const App = () => {
           />
           <Route path="contacts" element={<PrivateRouteToContacts />} />
           <Route path="*" element={<NotFound />} />
-        </Route>{' '}
-        {/*  TODO: ???*/}
-        <Route path="/error-page" element={<ErrorPage />} />
-        <Route path="/redirect" element={<Navigate to="/error-page" />} />
+        </Route>
       </Routes>
     </>
   );

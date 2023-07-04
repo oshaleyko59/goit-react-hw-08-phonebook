@@ -1,21 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import  authOperations from './auth-operations';
-//TODO: import toast from 'react-hot-toast';
+import authOperations from './auth-operations';
+import { transformErrorMsg } from '../../api/contactsApiErrors';
 
-function retriveErrorMsg(errObj) {  //TODO:
-  console.log('retriveErrorMsg>>', errObj);
-  const msgArr = [errObj.type];
-  msgArr.push(errObj.error.message);
-
-  if (errObj.payload) {
-    msgArr.push(errObj.payload); //.name + errObj.payload.message);
-  }
-
-  const msg = msgArr.join('. '); // msgArr[msgArr.length-1];
-  console.log(msgArr, msg);
-  //TODO:  toast.error(msg);
-  return msg;
-}
+import toast from 'react-hot-toast';
 
 const isRejectedAction = action => {
   return action.type.startsWith('auth/') && action.type.endsWith('rejected');
@@ -70,15 +57,13 @@ const authSlice = createSlice({
         state.errorMsg = '';
       })
       .addMatcher(isRejectedAction, (state, action) => {
-        console.log('handleRejected>>auth', action);
+        console.log('authRejected>>', action);
         state.isLoggedIn = false;
-        state.errorMsg = retriveErrorMsg(action);
+        const errm = transformErrorMsg(action.payload, action.type);
+        state.errorMsg = errm;
+        if (errm) {toast.error(errm);}
       });
   },
 });
 
 export default authSlice.reducer;
-
-  /*     if (errObj.payload.response) {
-      msgArr.push(errObj.payload.data.message);
-    } */

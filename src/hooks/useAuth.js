@@ -9,8 +9,9 @@ const useAuth = () => {
   const errorMsg = useSelector(authSelectors.selectErrorMsg);
   const dispatch = useDispatch();
 
-const onRefreshUser = () => dispatch(authOperations.fetchCurrentUser());
+  const onRefreshUser = () => dispatch(authOperations.fetchCurrentUser());
   const onLogout = () => dispatch(authOperations.logout());
+  
   return {
     isLoggedIn,
     isRefreshingUser,

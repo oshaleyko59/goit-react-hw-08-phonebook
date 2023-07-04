@@ -6,7 +6,6 @@ import { ContactList } from 'components/ContactList';
 import { Filter } from 'components/Filter';
 import { Loading } from 'components/Loading';
 import { NewUserWelcome } from 'components/NewUserWelcome';
-import { Error } from 'components/Error';
 import { Colors } from 'common/COLORS';
 
 export default function Contacts() {
@@ -30,7 +29,6 @@ export default function Contacts() {
       >
         Contacts
       </Text>
-      <Error />
       {isBusy ? (
         <Loading isLoading loadingText="" />
       ) : (

@@ -61,19 +61,13 @@ export default function Register() {
         <Box>
           <FormLabel>
             password
-            <PasswordInput
-              name={'password'}
-              autoComplete="new-password"
-            />
+            <PasswordInput name={'password'} autoComplete="new-password" />
           </FormLabel>
         </Box>
         <Box>
           <FormLabel>
             confirm password
-            <PasswordInput
-              name={'passwordCopy'}
-              autoComplete="new-password"
-            />
+            <PasswordInput name={'passwordCopy'} autoComplete="new-password" />
           </FormLabel>
         </Box>
         <Button type="submit" colorScheme="blue">

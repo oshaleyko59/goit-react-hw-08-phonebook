@@ -7,7 +7,6 @@ import {
   Skeleton,
 } from '@chakra-ui/react';
 import useAuth from '../hooks/useAuth';
-import { Error } from 'components/Error';
 import { Colors } from '../common/COLORS';
 
 
@@ -17,7 +16,6 @@ export default function Home() {
 
   return (
     <div>
-      <Error />
       <SkeletonText isLoaded={!isRefreshingUser}>
           <Flex
             direction="column"

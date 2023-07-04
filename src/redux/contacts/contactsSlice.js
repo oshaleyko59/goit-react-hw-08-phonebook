@@ -1,25 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import toast from 'react-hot-toast';
+
 import {
   fetchContacts,
   addContact,
   deleteContact,
 } from './contacts-operations';
-
-function retriveErrorMsg(errObj) {
-  console.log('retriveErrorMsg>>', errObj);
-  const msgArr = [errObj.type];
-  msgArr.push(errObj.error.message);
-
-  if (errObj.payload) {
-    msgArr.push(errObj.payload); //.name + errObj.payload.message);
-  }
-
-  const msg = msgArr.join('. '); // msgArr[msgArr.length-1];
-  console.log(msgArr);
-  toast.error(msg);
-  return msg;
-}
+import { transformErrorMsg } from '../../api/contactsApiErrors';
 
 const isRejectedAction = action => {
   return (
@@ -33,18 +19,18 @@ const isPendingAction = action => {
 
 const handlePending = state => {
   state.isBusy = true;
-  state.rejectMsg = '';
+  state.errorMsg = '';
 };
 
 const handleRejected = (state, action) => {
   state.isBusy = false;
-  state.rejectMsg = retriveErrorMsg(action); //TODO:
+  state.errorMsg = transformErrorMsg(action.payload, action.type);
 };
 
 const initialState = {
   items: null,
   isBusy: false,
-  rejectMsg: '',
+  errorMsg: '',
 };
 
 const contactsSlice = createSlice({
@@ -77,5 +63,5 @@ const contactsSlice = createSlice({
   },
 });
 
-export const { removeContacts } = contactsSlice.actions; 
+export const { removeContacts } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
